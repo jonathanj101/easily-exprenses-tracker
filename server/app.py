@@ -7,7 +7,7 @@ from routes.csv_upload_bp import csv_upload_bp
 app = Flask(__name__)
 app.config.from_object('config')
 
-app.register_blueprint(csv_upload_bp, url_prefix='/upload-file')
+app.register_blueprint(csv_upload_bp, url_prefix='/csv')
 
 
 @app.route("/")

@@ -28,7 +28,7 @@ export class UploadCsvComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.progressBar();
+    // this.progressBar();
   
   }
 

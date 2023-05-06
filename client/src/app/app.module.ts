@@ -19,12 +19,16 @@ import { AppComponent } from './app.component';
 import { UploadCsvComponent } from './views/upload-csv/upload-csv.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ToastComponent } from './views/toast/toast.component';
+import { ExpensesTableComponent } from './views/expenses-table/expenses-table.component';
+import { TotalExpensesCardComponent } from './views/total-expenses-card/total-expenses-card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UploadCsvComponent,
     ToastComponent,
+    ExpensesTableComponent,
+    TotalExpensesCardComponent,
   ],
   imports: [
     BrowserModule,

@@ -21,6 +21,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ToastComponent } from './views/toast/toast.component';
 import { ExpensesTableComponent } from './views/expenses-table/expenses-table.component';
 import { TotalExpensesCardComponent } from './views/total-expenses-card/total-expenses-card.component';
+import { ManualEntryComponent } from './views/manual-entry/manual-entry.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { TotalExpensesCardComponent } from './views/total-expenses-card/total-ex
     ToastComponent,
     ExpensesTableComponent,
     TotalExpensesCardComponent,
+    ManualEntryComponent,
   ],
   imports: [
     BrowserModule,

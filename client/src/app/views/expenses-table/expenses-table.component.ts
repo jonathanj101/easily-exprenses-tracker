@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
 
 @Component({
   selector: 'app-expenses-table',
@@ -6,10 +7,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./expenses-table.component.scss']
 })
 export class ExpensesTableComponent implements OnInit {
-
-  constructor() { }
+  expensesArr: Array<any> = [];
+  typeOf: String = "";
+  constructor(
+    private localStorageApi: LocalStorageService
+  ) { }
 
   ngOnInit(): void {
+    this.fetchLocalStorageData();
+  }
+
+  fetchLocalStorageData() {
+    const data = this.localStorageApi.getLocalStorageData()
+    if (data) {
+    this.expensesArr = data;
+    }
+    return;
+    
   }
 
 }

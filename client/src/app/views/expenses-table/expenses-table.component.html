@@ -9,7 +9,18 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
+        <tr *ngFor="let expense of expensesArr; index as i">
+            <th scope="row">{{i+1}}</th>
+            <td>{{expense.name}}</td>
+            <td>{{expense.description}}</td>
+            <td>{{expense.amount}}</td>
+            <td>
+                <span class="btn" [ngClass]="expense.isIncome ? 'btn-success': 'btn-danger'">
+                    {{expense.isIncome ? 'Income' : 'Expense'}}
+                </span>
+            </td>
+        </tr>
+        <!-- <tr>
             <th scope="row">1</th>
             <td>RENT</td>
             <td>PREVENT LIVING ON THE STREET</td>
@@ -41,6 +52,6 @@
                     INCOME
                 </span>
             </td>
-        </tr>
+        </tr> -->
     </tbody>
 </table>

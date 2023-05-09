@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class LocalStorageService {
 
   nameOfStorage: string = "expenses";
-
+  
 
   constructor() { }
 
@@ -21,10 +21,18 @@ export class LocalStorageService {
   getLocalStorageData() {
     const dataJson = JSON.parse(localStorage.getItem(this.nameOfStorage)!);
     console.log(dataJson);
+    return dataJson;
   }
 
   setLocalStorageData(expensesData:any) {
     console.log(expensesData);
-    return localStorage.setItem(this.nameOfStorage, JSON.stringify(expensesData));
+    let data = this.getLocalStorageData();
+    if (data) {
+      console.log(data);
+      data.push(expensesData)
+      console.log(data)
+      return localStorage.setItem(this.nameOfStorage,JSON.stringify(data))
+    }
+    return localStorage.setItem(this.nameOfStorage, JSON.stringify([expensesData]));
   }
 }

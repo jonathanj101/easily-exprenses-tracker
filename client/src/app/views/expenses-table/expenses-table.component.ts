@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
 
 @Component({
@@ -7,8 +8,9 @@ import { LocalStorageService } from 'src/app/services/local-storage/local-storag
   styleUrls: ['./expenses-table.component.scss']
 })
 export class ExpensesTableComponent implements OnInit {
-  expensesArr: Array<any> = [];
-  typeOf: String = "";
+  public expensesArr: Array<any> = [];
+  public expensesArrSliced: Array<any> = [];
+  public typeOf: String = "";
   constructor(
     private localStorageApi: LocalStorageService
   ) { }
@@ -21,9 +23,19 @@ export class ExpensesTableComponent implements OnInit {
     const data = this.localStorageApi.getLocalStorageData()
     if (data) {
     this.expensesArr = data;
+    this.expensesArrSliced = this.expensesArr.slice(0,5);
     }
     return;
     
+  }
+
+  onChangePage(event:PageEvent) {
+    const startIndex = event.pageIndex * event.pageSize;
+    let endIndex = startIndex + event.pageSize;
+    if (endIndex > this.expensesArr.length) {
+      endIndex = this.expensesArr.length
+    }
+    this.expensesArrSliced = this.expensesArr.slice(startIndex,endIndex)
   }
 
 }

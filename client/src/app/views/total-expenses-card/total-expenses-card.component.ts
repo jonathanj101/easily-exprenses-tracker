@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./total-expenses-card.component.scss']
 })
 export class TotalExpensesCardComponent implements OnInit {
-
+  public totalBudget: Number = 2500.59
   constructor() { }
 
   ngOnInit(): void {

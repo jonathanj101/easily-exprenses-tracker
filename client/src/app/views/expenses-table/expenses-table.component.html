@@ -9,49 +9,37 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let expense of expensesArr; index as i">
-            <th scope="row">{{i+1}}</th>
-            <td>{{expense.name}}</td>
-            <td>{{expense.description}}</td>
-            <td>{{expense.amount}}</td>
+        <tr *ngFor="let expense of expensesArrSliced; index as i">
+            <th scope="row">
+                <span class="some">
+                    {{i+1}}
+                </span>
+            </th>
+            <td>
+                <span class="some">
+                    {{expense.name}}
+                </span>
+            </td>
+            <td>
+                <span class="some">
+                    {{expense.description}}
+                </span>
+            </td>
+            <td>
+                <span class="some">
+                    {{expense.isIncome ? "+":"-" }} ${{expense.amount}}
+                </span>
+            </td>
             <td>
                 <span class="btn" [ngClass]="expense.isIncome ? 'btn-success': 'btn-danger'">
-                    {{expense.isIncome ? 'Income' : 'Expense'}}
+                    {{expense.isIncome ? 'INCOME' : 'EXPENSE'}}
                 </span>
             </td>
         </tr>
-        <!-- <tr>
-            <th scope="row">1</th>
-            <td>RENT</td>
-            <td>PREVENT LIVING ON THE STREET</td>
-            <td>1200</td>
-            <td>
-                <span class="btn btn-danger">
-                    Expense
-                </span>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>NETFLIX</td>
-            <td>TV ENTERTAINMENT. PREVENTS BOREDOM</td>
-            <td>20</td>
-            <td>
-                <span class="btn btn-danger">
-                    Expense
-                </span>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td>UBER DRIVER</td>
-            <td>UBER DRIVER PARTNER, JOB</td>
-            <td>600</td>
-            <td>
-                <span class="btn btn-success">
-                    INCOME
-                </span>
-            </td>
-        </tr> -->
     </tbody>
 </table>
+<div class="paginator-div">
+    <mat-paginator [length]="expensesArr.length" [pageSize]="5" [pageSizeOptions]="[5,10]"
+        (page)="onChangePage($event)">
+    </mat-paginator>
+</div>

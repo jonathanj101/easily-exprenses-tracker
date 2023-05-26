@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from "@angular/forms";
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
 
@@ -15,7 +16,9 @@ export class ManualEntryComponent implements OnInit {
   description: FormControl;
   amount: FormControl;
   constructor(
-    private localStorageApi: LocalStorageService
+    private localStorageApi: LocalStorageService,
+    private router:Router,
+    private route: ActivatedRoute
   ) { 
 
     this.name = new FormControl("",[Validators.required,Validators.minLength(5)])
@@ -39,30 +42,34 @@ export class ManualEntryComponent implements OnInit {
     return this.isFormControlEmpty = true;
   }
 
+
   addIncome() {
     console.log("add income clicked!");
     const incomeObj = {
-      name: this.name.value,
-      description: this.description.value,
+      name: this.name.value.toUpperCase(),
+      description: this.description.value.toUpperCase(),
       amount: this.amount.value,
       isIncome: true
     }
     this.localStorageApi.setLocalStorageData(incomeObj);
     this.formGroup.reset()
-    this.isFormControlEmpty = true
+    this.isFormControlEmpty = true;
+    window.location.reload()
   }
 
   addExpense() {
     console.log("add expense clicked!");
     const expenseObj = {
-      name: this.name.value,
-      description: this.description.value,
+      name: this.name.value.toUpperCase(),
+      description: this.description.value.toUpperCase(),
       amount: this.amount.value,
       isIncome: false
     }
     this.localStorageApi.setLocalStorageData(expenseObj);
     this.formGroup.reset()
     this.isFormControlEmpty = true
+    window.location.reload()
+
 
   }
 }

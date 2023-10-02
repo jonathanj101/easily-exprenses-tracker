@@ -11,7 +11,7 @@ export class ApiService {
     private httpService: AppHttpService
   ) { }
 
-  postExpensesCsv(file:any) {
+  uploadFile(file:any) {
     return this.httpService.post_csv("csv/upload-csv",file);
   }
 }

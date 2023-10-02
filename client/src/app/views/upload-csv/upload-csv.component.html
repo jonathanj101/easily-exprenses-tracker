@@ -10,22 +10,34 @@
         <div class="card-body">
             <div class="form-row mb-3">
                 <div class="form-row">
-                    <input type="file" class="form-control" id="upload-csv-input" accept=".csv"
-                        aria-describedby="upload csv file button" (change)="onChange($event)" />
+                    <input type="file"
+                        class="form-control"
+                        id="upload-csv-input"
+                        accept=".csv"
+                        aria-describedby="upload csv file button"
+                        (change)="onChange($event)" />
                 </div>
             </div>
         </div>
 
-        <div class="card-footer hanlders-btns-div">
+        <div
+            class="card-footer hanlders-btns-div">
             <div class="upload-file-div">
-                <button type="button" class="btn btn-outline-primary"
-                    [disabled]="!(isFileImported)">
+                <button type="button"
+                    class="btn btn-outline-primary"
+                    [disabled]="!(isFileImported)"
+                    (click)="submit()">
                     Upload File
                 </button>
             </div>
-            <!-- <div class="progress" [ngClass]="showProgress">
-                <div class="progress-bar" [ngClass]="progress" role="progressbar" aria-valuenow="25"
-                    aria-valuemin="0" aria-valuemax="100"></div>
+            <!-- <div class="progress"
+                [ngClass]="showProgress">
+                <div class="progress-bar"
+                    [ngClass]="progress"
+                    role="progressbar"
+                    aria-valuenow="25"
+                    aria-valuemin="0"
+                    aria-valuemax="100"></div>
             </div> -->
 
         </div>

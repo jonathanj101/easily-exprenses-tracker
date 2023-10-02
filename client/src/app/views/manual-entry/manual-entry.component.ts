@@ -15,6 +15,7 @@ export class ManualEntryComponent implements OnInit {
   name: FormControl;
   description: FormControl;
   amount: FormControl;
+  date: FormControl;
   constructor(
     private localStorageApi: LocalStorageService,
     private router:Router,
@@ -24,6 +25,7 @@ export class ManualEntryComponent implements OnInit {
     this.name = new FormControl("",[Validators.required,Validators.minLength(5)])
     this.description = new FormControl("",[Validators.required,Validators.minLength(5)])
     this.amount = new FormControl("",[Validators.required,Validators.min(1)])
+    this.date = new FormControl("",Validators.required)
 
     this.formGroup = new FormGroup({
       name:this.name,
@@ -49,6 +51,7 @@ export class ManualEntryComponent implements OnInit {
       name: this.name.value.toUpperCase(),
       description: this.description.value.toUpperCase(),
       amount: this.amount.value,
+      date:this.date.value,
       isIncome: true
     }
     this.localStorageApi.setLocalStorageData(incomeObj);
@@ -63,6 +66,7 @@ export class ManualEntryComponent implements OnInit {
       name: this.name.value.toUpperCase(),
       description: this.description.value.toUpperCase(),
       amount: this.amount.value,
+      date:this.date.value,
       isIncome: false
     }
     this.localStorageApi.setLocalStorageData(expenseObj);

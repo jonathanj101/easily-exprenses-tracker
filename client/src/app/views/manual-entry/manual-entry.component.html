@@ -1,22 +1,37 @@
 <form>
     <div class="input-group">
         <div class="form-floating">
-            <input (change)="onChange()" type="text" class="form-control" id="floatingInput"
-                [formControl]="name" placeholder="NAME" required>
-            <label for="floatingNameInput">Name of expense or income</label>
-            <div id="validator-message-div" *ngIf="name.invalid && name.touched">
-                <small class="text-danger">Name have to be more than 5 characters long!</small>
+            <input (change)="onChange()"
+                type="text" class="form-control"
+                id="floatingInput"
+                [formControl]="name"
+                placeholder="NAME" required>
+            <label for="floatingNameInput">Name of
+                expense or income</label>
+            <div id="validator-message-div"
+                *ngIf="name.invalid && name.touched">
+                <small class="text-danger">Name
+                    have to be more than 5
+                    characters long!</small>
             </div>
         </div>
 
 
         <div class="form-floating">
-            <input (change)="onChange()" type="text" class="form-control"
-                id="floatingDescriptionInput" placeholder="Description" [formControl]="description"
+            <input (change)="onChange()"
+                type="text" class="form-control"
+                id="floatingDescriptionInput"
+                placeholder="Description"
+                [formControl]="description"
                 required>
-            <label for="floatingDescriptionInput">Description</label>
-            <div id="validator-message-div" *ngIf="description.invalid && description.touched">
-                <small class="text-danger">Description have to be more than 5 characters
+            <label
+                for="floatingDescriptionInput">Description</label>
+            <div id="validator-message-div"
+                *ngIf="description.invalid && description.touched">
+                <small
+                    class="text-danger">Description
+                    have to be more than 5
+                    characters
                     long!</small>
             </div>
         </div>
@@ -24,20 +39,49 @@
 
 
         <div class="form-floating">
-            <input (change)="onChange()" type="number" class="form-control" id="floatingAmountInput"
-                placeholder="Amount" [formControl]="amount" required min="1">
-            <label for="floatingAmountInput">Amount</label>
-            <div id="validator-message-div" *ngIf="amount.invalid && amount.touched">
-                <small class="text-danger">Amount have to be more than or equal to 1!</small>
+            <input (change)="onChange()"
+                type="number" class="form-control"
+                id="floatingAmountInput"
+                placeholder="Amount"
+                [formControl]="amount" required
+                min="1">
+            <label
+                for="floatingAmountInput">Amount</label>
+            <div id="validator-message-div"
+                *ngIf="amount.invalid && amount.touched">
+                <small class="text-danger">Amount
+                    have to be more than or equal
+                    to 1!</small>
+            </div>
+        </div>
+
+        <div class="form-floating">
+            <input (change)="onChange()"
+                type="date" class="form-control"
+                id="floatingDateInput"
+                placeholder="Date"
+                [formControl]="date" required
+                min="1">
+            <label
+                for="floatingDateInput">Date</label>
+            <div id="validator-message-div"
+                *ngIf="date.invalid && date.touched">
+                <small class="text-danger">Date
+                    format mm/dd/yyyy</small>
             </div>
         </div>
 
     </div>
     <div class="submit-btns-div">
-        <button id="income-btn" type="submit" class="btn btn-success"
-            [disabled]="isFormControlEmpty" (click)="addIncome()">Add
+        <button id="income-btn" type="submit"
+            class="btn btn-success"
+            [disabled]="isFormControlEmpty"
+            (click)="addIncome()">Add
             Income</button>
-        <button id="expense-btn" type="submit" class="btn btn-danger"
-            [disabled]="isFormControlEmpty" (click)="addExpense()">Add Expense</button>
+        <button id="expense-btn" type="submit"
+            class="btn btn-danger"
+            [disabled]="isFormControlEmpty"
+            (click)="addExpense()">Add
+            Expense</button>
     </div>
 </form>

@@ -54,7 +54,7 @@ export class ManualEntryComponent implements OnInit {
       date:this.date.value,
       isIncome: true
     }
-    this.localStorageApi.setLocalStorageData(incomeObj);
+    this.localStorageApi.setLocalStorageData([incomeObj]);
     this.formGroup.reset()
     this.isFormControlEmpty = true;
     window.location.reload()
@@ -65,11 +65,11 @@ export class ManualEntryComponent implements OnInit {
     const expenseObj = {
       name: this.name.value.toUpperCase(),
       description: this.description.value.toUpperCase(),
-      amount: this.amount.value,
+      amount: -this.amount.value,
       date:this.date.value,
       isIncome: false
     }
-    this.localStorageApi.setLocalStorageData(expenseObj);
+    this.localStorageApi.setLocalStorageData([expenseObj]);
     this.formGroup.reset()
     this.isFormControlEmpty = true
     window.location.reload()

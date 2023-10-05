@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ApiService } from 'src/app/services/api.service';
+import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -23,6 +24,7 @@ export class UploadCsvComponent implements OnInit {
 
   constructor(
     private apiService: ApiService,
+    private localStorageApi: LocalStorageService,
     private _snackBar: MatSnackBar
 
   ) { 
@@ -43,16 +45,26 @@ export class UploadCsvComponent implements OnInit {
     const file = (<HTMLInputElement>event.target).files;
     this.fileToUpload = file !== null ? file[0] : file
     this.isFileImported = true
-    console.log(this.fileToUpload);
+
 
   }
 
   uploadFile(file:FileList) {
     this.apiService.uploadFile(file).subscribe(res=>{
-      console.log(res)
+      const {data, message} = res;
+
+      this.localStorageApi.setLocalStorageData(data);
+      this.progressBar()
+      setTimeout(()=> {
+        this.openSnackBar(message, "Success")
+      },6000)
+      setTimeout(()=>{
+        window.location.reload()
+      },8000)
       // console.log(res)
     }, error  => {
-      console.log(error)
+      // console.log(error)
+      this.openSnackBar(error.message, "Error")
     })
   }
 

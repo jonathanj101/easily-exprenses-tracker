@@ -1,6 +1,6 @@
 import pandas as pd
 from pathlib import Path
-from flask import request,  jsonify
+from flask import request,  jsonify, json
 from werkzeug.utils import secure_filename
 
 from config import basedir
@@ -22,11 +22,12 @@ def upload_csv_file():
             except FileNotFoundError as error:
                 return jsonify({"message": "Error with file! {error}"})
 
-            except IOError as error:
-                # print(error)
-                return jsonify({"message": f"Error reading file contents! {error}"})
-        except:
-            return jsonify({"message": "Error while saving file!"})
+        except IOError as error:
+            # print(error)
+            return jsonify({"message": f"Error reading file contents! {error}"})
+        except TypeError as e:
+            # print(e)
+            return jsonify({"message": "Error while saving file! Please make sure your file contents have columns as follow: NAME, VALUE, DESCRIPTION, DATE"})
     return jsonify({"message": "Some error occurred!"})
 
 
@@ -34,29 +35,29 @@ def read_csv_file(file, filename):
     # print(file)
     df = pd.read_csv(
         f"{basedir}/{filename}")
-    # print(df)
 
     # columns name
     names = df['NAME']
-    values = df["VALUE"]
-    descriptions = df["DESCRIPTIONS"]
+    amounts = df["AMOUNT"]
+    descriptions = df["DESCRIPTION"]
+    dates = df["DATE"]
 
     # data to return
     data_to_return = []
 
-    # will come back and refactor this piece of block
     for index in range(len(df)):
-        for name in names:
-            break
-        for value in values:
-            break
-        for description in descriptions:
-            break
 
         data_to_return.append({
-            'name': name,
-            'description': description,
-            'value': value
+            'name': list(names.values)[index],
+            'description': list(descriptions.values)[index],
+            'amount': list(amounts.values)[index],
+            'date': list(dates.values)[index]
         })
 
-    return data_to_return
+    # numpy or pd returns data as int64 which caused an error when returning data to other server as jsonify can't handle this data type to convert to json, only accepts regular python int data type. hints serialize data
+
+    # below would converts from int64 to regular int data type and return it as string
+    data_to_return = json.dumps(data_to_return, indent=2, default=int)
+
+    # json loads would converts string data to regular python data type (in this case dictionary or list)
+    return json.loads(data_to_return)

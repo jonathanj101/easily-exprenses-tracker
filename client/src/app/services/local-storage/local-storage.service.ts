@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class LocalStorageService {
 
   nameOfStorage: string = "expenses";
+  nameOfFilesUploaded: string = ""
   
 
   constructor() { }
@@ -19,16 +20,31 @@ export class LocalStorageService {
   }
 
   getLocalStorageData() {
-    const dataJson = JSON.parse(localStorage.getItem(this.nameOfStorage)!);
-    return dataJson;
+    const expensesDataJson = JSON.parse(localStorage.getItem(this.nameOfStorage)!);
+    const fileDataJson = JSON.parse(localStorage.getItem(this.nameOfFilesUploaded)!);
+    return {expensesDataJson, fileDataJson};
   }
 
   setLocalStorageData(expensesData:any) {
-    let data = this.getLocalStorageData();
-    if (data) {
-      data.push(expensesData)
-      return localStorage.setItem(this.nameOfStorage,JSON.stringify(data))
-    }
-    return localStorage.setItem(this.nameOfStorage, JSON.stringify([expensesData]));
+    let {expensesDataJson} = this.getLocalStorageData();
+    if (expensesDataJson) {
+        // expensesDataJson.push(expensesData)
+        expensesData.forEach((expense) => {
+          expensesDataJson.push(expense)
+        })
+      // if (fileData !== "") {
+        //   expensesDataJson.push(expensesData)
+        // }    
+        localStorage.setItem(this.nameOfStorage,JSON.stringify(expensesDataJson))
+      } else {
+        localStorage.setItem(this.nameOfStorage, JSON.stringify([expensesData]))
+      }
+    // if (fileDataJson){
+    //   if (fileData != "") {
+    //     fileDataJson.push(fileData)
+    //     // return localStorage.setItem(this.nameOfFilesUploaded, JSON.stringify(fileDataJson))
+    //   }
+    // }
+    // localStorage.setItem(this.nameOfStorage, JSON.stringify([fileDataJson]));
   }
 }

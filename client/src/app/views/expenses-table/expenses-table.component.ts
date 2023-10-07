@@ -27,29 +27,37 @@ export class ExpensesTableComponent implements OnInit {
 
   fetchLocalStorageData() {
     const {expensesDataJson} = this.localStorageApi.getLocalStorageData()
-    this.progressBar();
     setTimeout(()=>{
       this.openSnackBar("Loading your expenses!", "Warning")
     },1000)
     if (expensesDataJson) {
+      this.progressBar();
       setTimeout(()=>{
         this.expensesArr = expensesDataJson;
         this.expensesArr.forEach(expense => {
-        if (expense.isIncome == undefined) {
-          if (expense.amount < 0) {
-            expense.isIncome = false
-          } else {
-            expense.isIncome = true
+          if (expense.isIncome == undefined) {
+            if (expense.amount < 0) {
+              expense.isIncome = false
+            } else {
+              expense.isIncome = true
+            }
           }
-        }
-      })
-      this.expensesArrSliced = this.expensesArr.slice(0,5);
-      this.progress = "block"
-      
+        })
+        this.expensesArrSliced = this.expensesArr.slice(0,5);
+        
       },6000)
+
+
+      setTimeout(()=>{
+        this.progress = "none"
+      },7000)
+    } else {
+      setTimeout(() => {
+        this.openSnackBar("No expenses to show! Add some!", "Info")
+      },3000)
+      return;
     }
-    
-    return;
+
     
   }
 

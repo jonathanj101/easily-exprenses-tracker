@@ -29,9 +29,14 @@ export class LocalStorageService {
     let {expensesDataJson} = this.getLocalStorageData();
     if (expensesDataJson) {
         // expensesDataJson.push(expensesData)
-        expensesData.forEach((expense) => {
-          expensesDataJson.push(expense)
-        })
+        if (expensesData.length !== undefined) {
+          expensesData.forEach((expense) => {
+            expensesDataJson.push(expense)
+          })
+        }
+        else {
+          expensesDataJson.push(expensesData)
+        }
       // if (fileData !== "") {
         //   expensesDataJson.push(expensesData)
         // }    

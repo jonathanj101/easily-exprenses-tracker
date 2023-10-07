@@ -29,7 +29,8 @@
 
 ## Note
 
-Please have in mind that this is only a simple web app project that i created and not built to handle securities vulnerabilities.
+-   Please have in mind that this is only a simple web app project that i created and not built to handle securities vulnerabilities.
+-   Also, this project is not deployed on a server due to not being free on Heroku or other platform that offers this type of service.
 
 ## Summary
 

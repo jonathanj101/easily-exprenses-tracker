@@ -13,6 +13,7 @@ import { ToastComponent } from '../toast/toast.component';
 export class ExpensesTableComponent implements OnInit {
   public expensesArr: Array<any> = [];
   public expensesArrSliced: Array<any> = [];
+  public allChecked: Boolean = false
   public typeOf: String = "";
   public progress: String = ""
   public showProgress: String = ""
@@ -28,13 +29,15 @@ export class ExpensesTableComponent implements OnInit {
   fetchLocalStorageData() {
     const {expensesDataJson} = this.localStorageApi.getLocalStorageData()
     setTimeout(()=>{
-      this.openSnackBar("Loading your expenses!", "Warning")
+      this.openSnackBar("Loading your expenses!", "Info")
     },1000)
     if (expensesDataJson) {
       this.progressBar();
       setTimeout(()=>{
         this.expensesArr = expensesDataJson;
-        this.expensesArr.forEach(expense => {
+        this.expensesArr.forEach((expense,index) => {
+          expense.index=index
+          expense.isChecked=false
           if (expense.isIncome == undefined) {
             if (expense.amount < 0) {
               expense.isIncome = false
@@ -51,6 +54,9 @@ export class ExpensesTableComponent implements OnInit {
       setTimeout(()=>{
         this.progress = "none"
       },7000)
+      setTimeout(() => {
+        this.openSnackBar("Your expenses loaded successfully!","Success")
+      }, 8000)
     } else {
       setTimeout(() => {
         this.openSnackBar("No expenses to show! Add some!", "Info")
@@ -61,7 +67,37 @@ export class ExpensesTableComponent implements OnInit {
     
   }
 
+  expenseSelected(expense:any) {
+    this.expensesArr[expense.index].isChecked = !this.expensesArr[expense.index].isChecked
+  }
 
+  deleteExpenses() {
+    const selectedExpenses: Array<any> = [];
+    setTimeout(() => {
+    this.expensesArr.forEach(expense => {
+      if (expense.isChecked){
+        selectedExpenses.push(expense)
+      }
+    })
+    selectedExpenses.forEach(expense=> {
+      this.expensesArr.splice(expense.index,1)
+    })
+    this.expensesArr.forEach((expense,index) => {
+      expense.index = index
+    })
+      this.openSnackBar("Deleting your expenses! Please Wait", 'Info')
+    },3000)
+
+    setTimeout(()=> {
+      this.localStorageApi.updateLocalStorageData(this.expensesArr)
+      this.openSnackBar("Expenses deleted successfully!", "Success")
+    },6000)
+
+    setTimeout(() => {
+      window.location.reload()
+    },8000)
+
+  }
 
   onChangePage(event:PageEvent) {
     const startIndex = event.pageIndex * event.pageSize;
@@ -69,8 +105,10 @@ export class ExpensesTableComponent implements OnInit {
     if (endIndex > this.expensesArr.length) {
       endIndex = this.expensesArr.length
     }
+    console.log(this.expensesArr.slice(startIndex,endIndex))
     this.expensesArrSliced = this.expensesArr.slice(startIndex,endIndex)
   }
+
 
   progressBar() {
     this.showProgress = "showProgress"

@@ -28,7 +28,7 @@ export class LocalStorageService {
   setLocalStorageData(expensesData:any) {
     let {expensesDataJson} = this.getLocalStorageData();
     if (expensesDataJson) {
-        // expensesDataJson.push(expensesData)
+
         if (expensesData.length !== undefined) {
           expensesData.forEach((expense) => {
             expensesDataJson.push(expense)
@@ -37,19 +37,17 @@ export class LocalStorageService {
         else {
           expensesDataJson.push(expensesData)
         }
-      // if (fileData !== "") {
-        //   expensesDataJson.push(expensesData)
-        // }    
+
         localStorage.setItem(this.nameOfStorage,JSON.stringify(expensesDataJson))
       } else {
         localStorage.setItem(this.nameOfStorage, JSON.stringify([expensesData]))
       }
-    // if (fileDataJson){
-    //   if (fileData != "") {
-    //     fileDataJson.push(fileData)
-    //     // return localStorage.setItem(this.nameOfFilesUploaded, JSON.stringify(fileDataJson))
-    //   }
-    // }
-    // localStorage.setItem(this.nameOfStorage, JSON.stringify([fileDataJson]));
+
+  }
+
+  updateLocalStorageData(expensesData:any) {
+
+    localStorage.setItem(this.nameOfStorage,JSON.stringify(expensesData))
+
   }
 }
